@@ -1,0 +1,750 @@
+/* Iteco bvdPluginManager template*/
+
+'use strict';
+//rEach(key in bvdPluginManager) console.log(key);
+
+bvdPluginManager.registerWidget({
+    id: 'iteco_hc_line',
+    displayName: 'Iteco HC line',
+    hasDataChannel: true,
+    hasData: true,
+    isMultiselectDataField: true,
+
+    htmlCode: '<div id="container"  style="margin: auto; width:100%; height:100%"></div>',
+
+    hc: true,
+
+    init: function (ctx) {
+
+
+        var sparklnChart;
+
+
+        var id_hc = "container" + ctx.parentGroup.attr("id") + "New";
+
+        function createDiagram(envelope) {
+
+            Highcharts.setOptions({                                            // This is for all plots, change Date axis to local timezone
+                global: {
+                    useUTC: false
+                }
+            });
+
+
+
+
+
+            sparklnChart = Highcharts.chart(id_hc + 'graph', {
+
+                chart: {
+                    backgroundColor: document.body.style.backgroundColor,
+                    type: 'spline',
+
+
+                },
+                xAxis: {
+                    type: 'datetime',
+
+                    labels: {
+                        style: {
+                            fontSize: sizeText + 'em',
+                            color: 'green',
+                        }
+                    },
+                    lineColor: 'green',
+                },
+                yAxis: {
+                    title: {
+                        text: '',
+                        style: {
+                            fontSize: sizeText + 'em',
+                        },
+                    },
+                    labels: {
+                        style: {
+                            fontSize: sizeText + 'em',
+                            color: 'green',
+                        }
+                    },
+                    lineColor: 'green',
+                },
+                title: {
+                    text: titleCustom,
+
+                    style: {
+                        fontSize: sizeText + 'em',
+                    }
+
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+
+                legend: {
+                    itemStyle: {
+                        color: 'green',
+                        fontWeight: 'bold',
+                    },
+
+                    enabled: (legends!='false'),
+
+
+                },
+                plotOptions: {
+                    series: {}
+                },
+                exporting: {
+                    buttons: {
+                        customButton: {
+                            text: 'обновить график',
+                            onclick: function updat () {
+                                sparklnChart.series[0].setData([129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4], true);
+                            }
+                        }
+                    }
+                },
+            });
+
+
+
+            if (colorTheme==="black") {
+
+                // darkTheme --
+
+                Highcharts.theme = {
+                    colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+                        '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+                    chart: {
+                        backgroundColor: {
+                            linearGradient: {x1: 0, y1: 0, x2: 1, y2: 1},
+                            stops: [
+                                [0, '#2a2a2b'],
+                                [1, '#3e3e40']
+                            ]
+                        },
+                        style: {
+                            fontFamily: '\'Unica One\', sans-serif'
+                        },
+                        plotBorderColor: '#606063'
+                    },
+                    title: {
+                        style: {
+                            color: '#E0E0E3',
+                            textTransform: 'uppercase',
+                            fontSize: '20px'
+                        }
+                    },
+                    subtitle: {
+                        style: {
+                            color: '#E0E0E3',
+                            textTransform: 'uppercase'
+                        }
+                    },
+                    xAxis: {
+                        gridLineColor: '#707073',
+                        labels: {
+                            style: {
+                                color: '#E0E0E3'
+                            }
+                        },
+                        lineColor: '#707073',
+                        minorGridLineColor: '#505053',
+                        tickColor: '#707073',
+                        title: {
+                            style: {
+                                color: '#A0A0A3'
+
+                            }
+                        }
+                    },
+                    yAxis: {
+                        gridLineColor: '#707073',
+                        labels: {
+                            style: {
+                                color: '#E0E0E3'
+                            }
+                        },
+                        lineColor: '#707073',
+                        minorGridLineColor: '#505053',
+                        tickColor: '#707073',
+                        tickWidth: 1,
+                        title: {
+                            style: {
+                                color: '#A0A0A3'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                        style: {
+                            color: '#F0F0F0'
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                color: '#F0F0F3',
+                                style: {
+                                    fontSize: '13px'
+                                }
+                            },
+                            marker: {
+                                lineColor: '#333'
+                            }
+                        },
+                        boxplot: {
+                            fillColor: '#505053'
+                        },
+                        candlestick: {
+                            lineColor: 'white'
+                        },
+                        errorbar: {
+                            color: 'white'
+                        }
+                    },
+                    legend: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        itemStyle: {
+                            color: '#E0E0E3'
+                        },
+                        itemHoverStyle: {
+                            color: '#FFF'
+                        },
+                        itemHiddenStyle: {
+                            color: '#606063'
+                        },
+                        title: {
+                            style: {
+                                color: '#C0C0C0'
+                            }
+                        },
+
+                        enabled: (legends!='false'),
+
+
+                    },
+                    credits: {
+                        style: {
+                            color: '#666'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            color: '#707073'
+                        }
+                    },
+
+                    drilldown: {
+                        activeAxisLabelStyle: {
+                            color: '#F0F0F3'
+                        },
+                        activeDataLabelStyle: {
+                            color: '#F0F0F3'
+                        }
+                    },
+
+                    navigation: {
+                        buttonOptions: {
+                            symbolStroke: '#DDDDDD',
+                            theme: {
+                                fill: '#505053'
+                            }
+                        }
+                    },
+
+                    // scroll charts
+                    rangeSelector: {
+                        buttonTheme: {
+                            fill: '#505053',
+                            stroke: '#000000',
+                            style: {
+                                color: '#CCC'
+                            },
+                            states: {
+                                hover: {
+                                    fill: '#707073',
+                                    stroke: '#000000',
+                                    style: {
+                                        color: 'white'
+                                    }
+                                },
+                                select: {
+                                    fill: '#000003',
+                                    stroke: '#000000',
+                                    style: {
+                                        color: 'white'
+                                    }
+                                }
+                            }
+                        },
+                        inputBoxBorderColor: '#505053',
+                        inputStyle: {
+                            backgroundColor: '#333',
+                            color: 'silver'
+                        },
+                        labelStyle: {
+                            color: 'silver'
+                        }
+                    },
+
+                    navigator: {
+                        handles: {
+                            backgroundColor: '#666',
+                            borderColor: '#AAA'
+                        },
+                        outlineColor: '#CCC',
+                        maskFill: 'rgba(255,255,255,0.1)',
+                        series: {
+                            color: '#7798BF',
+                            lineColor: '#A6C7ED'
+                        },
+                        xAxis: {
+                            gridLineColor: '#505053'
+                        }
+                    },
+
+                    scrollbar: {
+                        barBackgroundColor: '#808083',
+                        barBorderColor: '#808083',
+                        buttonArrowColor: '#CCC',
+                        buttonBackgroundColor: '#606063',
+                        buttonBorderColor: '#606063',
+                        rifleColor: '#FFF',
+                        trackBackgroundColor: '#404043',
+                        trackBorderColor: '#404043'
+                    }
+                };
+
+                // Apply the theme
+                //  Highcharts.setOptions(Highcharts.theme);
+
+                sparklnChart.update(Highcharts.theme);
+
+
+
+            }else
+                sparklnChart.backgroundColor = document.body.style.backgroundColor;
+
+        //    sparklnChart.update(Highcharts.theme);
+
+
+
+
+try {
+    ctx.graphicItem.aProperty.forEach(element => {
+        sparklnChart.addSeries({
+            name: element.replace("numberOf", "")
+        });
+    }, this);
+
+
+} catch(e){
+
+    var names = ctx.graphicItem.property;
+    sparklnChart.addSeries({
+        name: names.replace("numberOf", "")
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+        const addData = envelope => {
+
+            $('#' + ctx.parentGroup.attr("id")).css('visibility', "hidden");
+            checkData(timeNoData, bustedDiv);
+
+            var ts = new Date(envelope.ts);
+            var i = 0;
+           // var x = new Boolean(true);
+            //if (x) {
+            //            try {
+            //               ctx.graphicItem.aProperty.forEach(propElem => {
+            //                   sparklnChart.series[i].addPoint([ts.getTime(), +envelope.data[propElem]], true, sparklnChart.series[i].points.length > countPoint);
+            //                   i++;
+            //               })
+            //           }
+            //             catch(e){
+            //
+            //                 sparklnChart.series[i].addPoint([ts.getTime(), +envelope.data[ctx.graphicItem.property]], true, sparklnChart.series[i].points.length > countPoint);
+            //             }
+            //             return;
+            //         };
+            //}
+            // else {
+                //            try {
+                //               ctx.graphicItem.aProperty.forEach(propElem => {
+                //                   sparklnChart.series[i].addPoint([ts.getTime(), +envelope.data[propElem]], false, sparklnChart.series[i].points.length > countPoint);
+                //                   i++;
+                //               })
+                //           }
+                //             catch(e){
+                //
+                //                 sparklnChart.series[i].addPoint([ts.getTime(), +envelope.data[ctx.graphicItem.property]], false, sparklnChart.series[i].points.length > countPoint);
+                //             }
+                //             return;
+                //         };
+            //      }
+
+
+          try {
+              ctx.graphicItem.aProperty.forEach(propElem => {
+                  sparklnChart.series[i].addPoint([ts.getTime(), +envelope.data[propElem]], true, sparklnChart.series[i].points.length > countPoint);
+                  i++;
+              })
+          }
+            catch(e){
+
+                sparklnChart.series[i].addPoint([ts.getTime(), +envelope.data[ctx.graphicItem.property]], true, sparklnChart.series[i].points.length > countPoint);
+
+
+            }
+
+
+
+
+
+            return;
+        };
+
+
+        var timerId;
+
+
+        function failData(bustedDiv) {
+            console.log("потраченно....");
+            var divBusted = document.getElementById(bustedDiv);
+            divBusted.style.opacity = '0.4';
+            divBusted.style.zIndex = 46;
+
+        }
+
+
+        function checkData(timeNoData, bustedDiv) {
+            //  clearTimeout(timerId);
+            console.log("it's live!!!");
+
+
+            clearTimeout(timerId);
+            console.log("cancel time");
+
+            var divBusted = document.getElementById(bustedDiv);
+            // bustedDiv.innerHTML='';
+            divBusted.style.opacity = '0';
+            divBusted.style.zIndex = 0;
+
+            timerId = setTimeout(failData, timeNoData, bustedDiv);
+
+        }
+
+
+        try {
+            var sizeText = ctx.getProperty('opr_chart_text_size');
+            console.log(" sizeText " + sizeText);
+        }
+        catch(e) {
+            var sizeText = 1;
+            console.log(" sizeText " + sizeText);
+        }
+
+
+        try {
+            var titleCustom = ctx.getProperty('opr_chart_title');
+            console.log(" tittleCustom " + titleCustom);
+        }
+        catch(e) {
+            var titleCustom = '';
+            console.log(" tittleCustom " + titleCustom);
+        }
+
+
+        try {
+            var countMinute = ctx.getProperty('opr_chart_period');
+            console.log(" countMinute " + countMinute);
+        }
+        catch(e) {
+            var countMinute = 1;
+            console.log(" countMinute " + countMinute);
+        }
+
+        try {
+            var minHC = ctx.getProperty('opr_chart_min_value');
+            console.log(" minHC " + minHC);
+        }
+        catch(e) {
+            var minHC = 0;
+            console.log("no min");
+        }
+        try {
+            var maxHC = ctx.getProperty('opr_chart_max_value');
+            console.log(" maxHC " + maxHC);
+        }
+        catch(e) {
+            var maxHC = 100;
+            console.log("no max");
+        }
+
+
+        try {
+            var timeNoData = ctx.getProperty('opr_chart_data');
+            console.log(" timeNoData " + timeNoData);
+
+        }
+        catch(e) {
+            var timeNoData = 1;
+            console.log("no timeNoData");
+        }
+
+
+
+
+
+
+
+        try{ var colorTheme = ctx.getProperty('opr_chart_theme');
+            console.log(" opr_chart_theme " + colorTheme);
+
+        }
+        catch(e) {var colorTheme = "white";
+            console.log("no opr_chart_theme");}
+
+
+
+
+        try{ var legends = ctx.getProperty('opr_chart_legend');
+
+        if (legends!='false')  {legends='true';}
+            console.log(" legends " + legends);
+
+        }
+        catch(e) {var legends = "true";
+            console.log("no legend");}
+
+
+
+
+
+
+        timeNoData *= 60000;
+
+        var bustedDiv = id_hc + "blue";
+
+
+        var requestedTimeStamp = +(new Date(Date.now() - 1000 * 60 * countMinute));
+        console.log("длина " + requestedTimeStamp);
+        var countPoint = 0;
+
+        var dataXY = [];
+
+
+        ctx.onInit({
+            itemCount: requestedTimeStamp,
+            callback: function (envelopeArray) {
+                makeDivforHC(id_hc);
+                $('#' + ctx.parentGroup.attr("id")).css('visibility', "hidden");
+
+                function time() {
+                    if (document.getElementById(id_hc).style.width !== "0px") {
+                        waitAndDrawHC(id_hc, "", ctx.parentGroup.attr("id"));
+                    }
+                    createDiagram();
+                    if (envelopeArray && envelopeArray.length > 0) {
+
+                        var ts, i;
+                        //Перебираем JSON-пакеты с историей
+
+                        envelopeArray.forEach(envElem => {
+                            countPoint++;
+                            ts = new Date(envElem.ts);
+                            i = 0;
+
+
+
+                               try {
+
+                                   ctx.graphicItem.aProperty.forEach(propElem => {
+                                       i++;
+
+                                       dataXY.push({
+                                           x: ts,
+                                           y: +envElem.data[propElem]
+                                       });
+
+
+                                   })
+
+
+
+                               } catch (e) {
+                                   i++;
+                                   dataXY.push({
+                                       x: ts,
+                                       y: +envElem.data[ctx.graphicItem.property]
+                                   });
+
+                              }
+
+
+
+
+
+
+
+
+
+                        }, this);
+
+
+
+
+
+                        var dataQ = [];
+
+                        console.log("i =  " + i);
+
+
+                        for (var q = 0; q < i; q++) {
+
+                            for (var ok = q; ok < dataXY.length; ok = ok + i) {
+                                dataQ.push(dataXY[ok]);
+
+                            }
+                            ;
+
+                            sparklnChart.series[q].setData(dataQ, true, true);
+                            var dataQ = [];
+
+                        }
+
+
+                    }
+
+
+                }
+
+                var failCount = 0;
+                const interval = setInterval(() => {
+
+                    if (document.getElementById(id_hc)) {
+                        if (document.getElementById(id_hc).style.width !== "0px" || failCount === 50000) {
+                            clearInterval(interval);
+                            //    clearInterval(timerId);
+                            time();
+                            //setTimeout(time, 1);
+                            console.log("all ok!");
+                            // clearInterval(timerId);
+                        } else {
+                            failCount++;
+                        }
+                    }
+
+                }, 1);
+
+                timerId = setTimeout(failData, timeNoData, bustedDiv);
+                checkData(timeNoData, bustedDiv);
+
+
+            }
+        });
+
+       ctx.onChange({
+            callback: addData
+        });
+
+        $(window).resize(function () {
+            $('#' + ctx.parentGroup.attr("id")).css('visibility', "hidden");
+        });
+
+
+    },
+
+    customProperty: [
+
+
+        {
+            id: 'opr_chart_period',
+            label: 'Chart Period',
+            type: 'number',
+            default: 10
+        },
+
+
+        {
+            id: 'opr_chart_min_value',
+            label: 'Chart Minimum Value',
+            type: 'number',
+            default: 0
+        },
+
+
+        {
+            id: 'opr_chart_max_value',
+            label: 'Chart Maximum Value',
+            type: 'number',
+            default: 100
+        },
+
+        {
+            id: 'opr_chart_title',
+            label: 'Chart Title',
+            type: 'text',
+            default: ''
+        },
+
+        {
+            id: 'opr_chart_data',
+            label: 'Время ожидания обновления данных в минутах',
+            type: 'number',
+            default: 1
+        },
+
+
+        {
+            id: 'opr_chart_text_size',
+            label: 'Увеличение базовых размеров шрифтов',
+            type: 'number',
+            default: 1
+        },
+
+        {
+            id:'opr_chart_theme',
+            label:'Цветовая тема',
+            type:'text',
+            select: true,
+            default:"white",
+
+        },
+
+
+        {
+            id:'opr_chart_legend',
+            label:'Присутствие легенды',
+            type:'text',
+            default:"true",
+
+        },
+
+
+
+    ]
+
+
+});
+
+
+
+
+
